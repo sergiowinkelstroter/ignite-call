@@ -1,4 +1,3 @@
-import React from "react";
 import { Form, FormAnnotation } from "./styles";
 import { Button, Text, TextInput } from "@ignite-ui/react";
 import { ArrowRight } from "phosphor-react";
