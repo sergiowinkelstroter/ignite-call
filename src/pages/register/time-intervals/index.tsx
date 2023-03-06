@@ -23,6 +23,7 @@ import { getWeekDays } from "@/utils/get-week-days";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { convertTimeStringToMinutes } from "@/utils/convert-time-string-to-minutes";
 import { api } from "@/lib/axios";
+import { useRouter } from "next/router";
 
 const timeIntervalsFormSchema = z.object({
   intervals: z
@@ -96,17 +97,21 @@ export default function ConnectCalendar() {
     name: "intervals",
   });
 
+  const router = useRouter();
+
   async function handleSetIntervals(data: any) {
     const { intervals } = data as TimeIntervalsFormOutput;
     await api.post("/users/time-intervals", {
       intervals,
     });
+
+    await router.push("/register/update-profile");
   }
 
   return (
     <RegisterContainer>
       <Header>
-        <Heading as="strong">Quase lá</Heading>
+        <Heading as="strong">Defina sua disponibilidade</Heading>
         <Text>
           Defina o intervalo de horários que você está disponível em cada dia da
           semana.
