@@ -10,6 +10,9 @@ import { CalendarBlank, Clock } from "phosphor-react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import dayjs from "dayjs";
+import { useRouter } from "next/router";
+import { api } from "@/lib/axios";
 
 const confirmStepFormSchema = z.object({
   name: z
@@ -21,7 +24,15 @@ const confirmStepFormSchema = z.object({
 
 type ConfirmStepFormData = z.infer<typeof confirmStepFormSchema>;
 
-export const ConfirmStep = () => {
+interface ConfirmStepProps {
+  schedulingDate: Date;
+  onCancelConfirmation: () => void;
+}
+
+export const ConfirmStep = ({
+  schedulingDate,
+  onCancelConfirmation,
+}: ConfirmStepProps) => {
   const {
     register,
     handleSubmit,
@@ -30,20 +41,36 @@ export const ConfirmStep = () => {
     resolver: zodResolver(confirmStepFormSchema),
   });
 
-  function handleConfirm(data: ConfirmStepFormData) {
-    console.log(data);
+  const router = useRouter();
+  const username = String(router.query.username);
+
+  async function handleConfirm(data: ConfirmStepFormData) {
+    const { email, name, obs } = data;
+
+    await api.post(`/users/${username}/schedule`, {
+      name,
+      email,
+      observations: obs,
+      date: schedulingDate,
+    });
+
+    onCancelConfirmation();
   }
+
+  const describedDate = dayjs(schedulingDate).format("DD[ de ]MMMM[ de ]YYYY");
+
+  const describedTime = dayjs(schedulingDate).format("HH:mm[h]");
 
   return (
     <ConfirmStepContainer as="form" onSubmit={handleSubmit(handleConfirm)}>
       <ConfirmStepHeader>
         <div>
           <CalendarBlank />
-          <Text>22 de março de 2023</Text>
+          <Text>{describedDate}</Text>
         </div>
         <div>
           <Clock />
-          <Text>18h</Text>
+          <Text>{describedTime}</Text>
         </div>
       </ConfirmStepHeader>
       <ConfirmStepInputs>
@@ -78,7 +105,9 @@ export const ConfirmStep = () => {
         </label>
       </ConfirmStepInputs>
       <ConfirmStepActions>
-        <Button variant="tertiary">Cancelar</Button>
+        <Button variant="tertiary" onClick={() => onCancelConfirmation()}>
+          Cancelar
+        </Button>
         <Button type="submit">Confirmar</Button>
       </ConfirmStepActions>
     </ConfirmStepContainer>
