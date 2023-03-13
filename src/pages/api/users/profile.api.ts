@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { unstable_getServerSession } from "next-auth";
-import { buildNextAuthOptions } from "../auth/[...nextauth]";
+import { buildNextAuthOptions } from "../auth/[...nextauth].api";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 

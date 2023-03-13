@@ -14,7 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
 import { unstable_getServerSession } from "next-auth";
 import { GetServerSideProps } from "next";
-import { buildNextAuthOptions } from "@/pages/api/auth/[...nextauth]";
+import { buildNextAuthOptions } from "@/pages/api/auth/[...nextauth].api";
 import { api } from "@/lib/axios";
 import { useRouter } from "next/router";
 import { NextSeo } from "next-seo";
