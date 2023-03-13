@@ -29,7 +29,7 @@ interface ConfirmStepProps {
   onCancelConfirmation: () => void;
 }
 
-export default function ConfirmStep({
+export function ConfirmStep({
   schedulingDate,
   onCancelConfirmation,
 }: ConfirmStepProps) {
