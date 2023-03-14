@@ -5,15 +5,17 @@ export const Container = styled("div", {
   padding: "0 $4",
   margin: "$6 auto $4",
 
-  "@media (max-width: 600px)": {},
+  "@media (max-width: 600px)": {
+    width: 540,
+    margin: "auto",
+    marginTop: "$10",
+  },
 });
 
 export const UserHeader = styled("div", {
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  width: 540,
-  margin: "auto",
 
   [`> ${Heading}`]: {
     lineHeight: "$base",
