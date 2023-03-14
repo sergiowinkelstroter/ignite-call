@@ -11,6 +11,7 @@ import dayjs from "dayjs";
 import { api } from "@/lib/axios";
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
+import { X } from "phosphor-react";
 
 interface Availability {
   possibleTimes: number[];
@@ -29,7 +30,7 @@ export function CalendarStep({ onSelectDateTime }: CalendarStepProps) {
 
   const isDateSelected = !!selectedDate;
 
-  const weekDay = selectedDate ? dayjs(selectedDate).format("dddd") : null;
+  const weekDay = selectedDate ? dayjs(selectedDate).format("ddd") : null;
   const day = isDateSelected ? dayjs(selectedDate).format("DD") : null;
   const month = selectedDate ? dayjs(selectedDate).format("MMMM") : null;
 
@@ -68,6 +69,10 @@ export function CalendarStep({ onSelectDateTime }: CalendarStepProps) {
     onSelectDateTime(dateWithTime);
   }
 
+  function handleCloseTimePicker() {
+    setSelectedDate(null);
+  }
+
   return (
     <Container isTimePickerOpen={isDateSelected}>
       <Calendar selectedDate={selectedDate} onDateSeleted={setSelectedDate} />
@@ -78,6 +83,9 @@ export function CalendarStep({ onSelectDateTime }: CalendarStepProps) {
             <span>
               {day} de {month}
             </span>
+            <button onClick={handleCloseTimePicker}>
+              <X size={22} />
+            </button>
           </TimePickerHeader>
           <TimePickerList>
             {availability?.possibleTimes.map((hour) => {

@@ -11,7 +11,8 @@ export const Container = styled(Box, {
       true: {
         gridTemplateColumns: "1fr 280px",
 
-        "@media (max-width: 900px)": {
+        "@media (max-width: 600px)": {
+          width: 540,
           gridTemplateColumns: "1fr",
         },
       },
@@ -33,6 +34,14 @@ export const TimePicker = styled("div", {
   bottom: 0,
   right: 0,
   width: 280,
+
+  "@media (max-width: 600px)": {
+    zIndex: 10000,
+
+    backgroundColor: "$gray800",
+
+    borderRadius: "$md",
+  },
 });
 
 export const TimePickerHeader = styled(Text, {
@@ -40,6 +49,19 @@ export const TimePickerHeader = styled(Text, {
 
   span: {
     color: "$gray200",
+  },
+
+  button: {
+    all: "unset",
+    display: "none",
+
+    position: "absolute",
+    top: 10,
+    right: 10,
+
+    "@media (max-width: 600px)": {
+      display: "block",
+    },
   },
 });
 

@@ -3,7 +3,7 @@ import { styled, Heading, Text } from "@ignite-ui/react";
 export const Container = styled("div", {
   display: "flex",
   alignItems: "center",
-  gap: "$5",
+  gap: "$16",
 
   height: "100vh",
   marginLeft: "auto",

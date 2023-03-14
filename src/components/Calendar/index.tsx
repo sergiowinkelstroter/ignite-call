@@ -145,7 +145,7 @@ export const Calendar = ({ onDateSeleted, selectedDate }: CalendarProps) => {
   }, [currentDate, blockedDates]);
 
   return (
-    <CalendarContainer>
+    <CalendarContainer variant={selectedDate === null ? false : true}>
       <CalendarHeader>
         <CalendarTitle>
           {currentMonth} <span>{currentYear}</span>
