@@ -47,14 +47,18 @@ export function ConfirmStep({
   async function handleConfirm(data: ConfirmStepFormData) {
     const { email, name, obs } = data;
 
-    await api.post(`/users/${username}/schedule`, {
-      name,
-      email,
-      observations: obs,
-      date: schedulingDate,
-    });
+    try {
+      await api.post(`/users/${username}/schedule`, {
+        name,
+        email,
+        observations: obs,
+        date: schedulingDate,
+      });
 
-    onCancelConfirmation();
+      onCancelConfirmation();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   const describedDate = dayjs(schedulingDate).format("DD[ de ]MMMM[ de ]YYYY");
